@@ -1,31 +1,25 @@
-import year
+from year import validate_year
 import unittest
 
 
-t_year = year.validate_year(1987)
-print(t_year)
-# expected output : 1987
+class YearTest(unittest.TestCase):
+    """
+    Tests for year.py
+    """
 
-t_year = year.validate_year("essai")
-print(t_year)
-# expected output : None
-
-
-class TestSimple(unittest.TestCase):
-
-    def test_validate_year(self):
-        t_year = year.validate_year("1987")
-        self.assertEqual(t_year, 1987)
-
-        t_year = year.validate_year("13")
-        self.assertEqual(t_year, 2013)
-
-        t_year = year.validate_year("sdfghj")
-        self.assertEqual(t_year, None)
-
-        t_year = year.validate_year("2020")
-        self.assertEqual(t_year, None)
-
+    def test_year(self):
+        """
         
-if __name__ == '__main__':
+        """
+
+        self.assertEqual(validate_year(1987), 1987)
+        self.assertEqual(validate_year("1987"), 1987)
+        self.assertEqual(validate_year("lxlw<kjx"), None)
+        self.assertEqual(validate_year("03"), 2003)
+        self.assertEqual(validate_year("69"), 1969)
+        self.assertEqual(validate_year("20"), 1920)
+        self.assertEqual(validate_year("2020"), None)
+
+
+if __name__ == "__main__":
     unittest.main()
