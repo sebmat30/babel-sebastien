@@ -17,7 +17,7 @@ def validate_year(year):
         return year
     else:
         year = int(year)
-        return year
+        return check_age(year)
 
 
 def check_age(year):
@@ -39,12 +39,14 @@ def controller_input():
     """
     While the input is deemed invalid, it will be set back to empty allowing the function to loop
     """
-    user_input = ''
-    while user_input == '':
+    user_input = ""
+    while user_input == "":
         user_input = input("Entrez votre année de naissance (format yy ou yyyy)")
         input_len = len(user_input)
         if user_input[0] == "0" and input_len >= 2:
-            user_input = user_input[1]  # Strip the 0 at the beginning of the string as it will prevent any conversion to INT and crash the program
+            user_input = user_input[
+                1
+            ]  # Strip the 0 at the beginning of the string as it will prevent any conversion to INT and crash the program
 
         user_input = validate_year(user_input)
         if user_input:
@@ -55,10 +57,10 @@ def controller_input():
                 return user_input
             else:
                 print("Erreur, votre année de naissance doit comporter 2 ou 4 chiffres")
-                user_input = ''
+                user_input = ""
         else:
             print("L'année de naissance ne doit comporter que des chiffres")
-            user_input = ''
+            user_input = ""
 
 
 if __name__ == "__main__":
