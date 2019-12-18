@@ -4,9 +4,7 @@ import datetime
 
 
 def is_int(number):
-    """
-    Check if a given string can be converted to a number
-    """
+  
     a = False
     try:
         int(number)
@@ -18,11 +16,7 @@ def is_int(number):
 
 
 def check_age(year):
-    """
-    Takes in an INT as year
-    If the two digits date entered is 20 years old and not in the future, place it in the 1900's
-    Else, place it in the 2000's
-    """
+
     date = datetime.datetime.now()
     if (year + 1900) >= (date.year - 20) or ((year + 2000) > date.year):
         return year + 1900
@@ -31,9 +25,7 @@ def check_age(year):
 
 
 def strip_zeros(two_dig_date):
-    """
-    Strips every zero beginning a two digits date
-    """
+  
     two_dig_date = two_dig_date[
         1
     ]  # Strip the 0 at the beginning any two digits date so it can be converted to int
@@ -41,11 +33,7 @@ def strip_zeros(two_dig_date):
 
 
 def controller_input():
-    """
-    While the input is deemed invalid,
-    it will be set back to empty
-    And the function will loop
-    """
+
     user_input = ""
     while user_input == "":
         user_input = input("Entrez votre année de naissance (format yy ou yyyy)")
