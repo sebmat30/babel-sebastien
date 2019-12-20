@@ -72,8 +72,8 @@ F_HTML = "content"
 F_TITLE = "title"
 F_IMAGE = "image"
 F_DESC = "desc"
-F_DATASET = "DataSet"
-F_COUNTER = "Nombre d'Objet"
+F_DATASET = "dataset"
+F_COUNTER = "nbrobjet"
 
 
 def writetodict(html, is_verbose=False):
