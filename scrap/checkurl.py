@@ -45,6 +45,12 @@ def get_urls(arglist, is_verbose=True):
             writetodict(html, is_verbose)
 
 
+def count_dataset(data):
+    # """Fonction qui  permet de savoir combien il y a d'objet """
+    counter = len(data)
+    print(counter)
+
+
 def displayurl(html, is_verbose):
     print(f"--> Il y a {len(html.text)} octets dans {html.url}")
     if is_verbose:
@@ -64,20 +70,22 @@ F_URL = "url"
 F_STATUS = "status_code"
 F_HTML = "content"
 F_TITLE = "title"
+F_IMAGE = "image"
+F_DESC = "desc"
 
 
 def writetodict(html, is_verbose=False):
-    title = search_title(html.text)
-    dict = {
-        F_URL: html.url,
-        F_STATUS: html.status_code,
-        F_HTML: html.text[:6000],
-        F_TITLE: title,
-    }
+    # title = search_title(html.text)
+    # F_HTML: html.text[:6000],
+    # F_TITLE: title,
+    
+    dict_meta = search_meta(html.text)
+    dict_url = {F_STATUS: html.status_code, F_URL: html.url}
+    dict_url.update(dict_meta)
 
     # ATTENTION : dataset est défini en global comme une liste
     global dataset
-    dataset.append(dict)
+    dataset.append(dict_url)
 
     # affiche le nom du fichier .py
     print(__file__)
@@ -112,6 +120,32 @@ def search_title_by_bs4(text):
     return soup.title.string
 
 
+def search_meta(text):
+    soup = BeautifulSoup(text, "lxml")
+
+    title = soup.find("meta", property="og:title")
+    if not title: 
+        title_content = soup.title.string
+    else:
+        title_content = title["content"]
+
+    desc = soup.find("meta", property="og:description")
+    desc_content = desc["content"] if desc else ""
+
+    image = soup.find("meta", property="og:image") 
+    image_content = image["content"] if image else ""
+  
+    dict_meta = {
+        F_TITLE: title_content,
+        F_DESC: desc_content,
+        F_IMAGE: image_content}
+
+    url = soup.find("meta", property="og:url")
+    if url: 
+        dict_meta[F_URL] = url["content"]
+    return dict_meta
+
+    
 def search_title(text):
     """ Fonction qui cherche le titre d'une page HTML """
     return search_title_by_bs4(text)
@@ -136,7 +170,7 @@ if __name__ == "__main__":
         print(item)
 
     listedesurls = [
-        # "http://localhost:8080/formext/avions/avions",
+        "https://jeuxvideo.com",
         "https://www.dealabs.com",
         "https://www.ouest-france.fr/",
     ]
