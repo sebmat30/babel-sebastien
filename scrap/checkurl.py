@@ -72,6 +72,8 @@ F_HTML = "content"
 F_TITLE = "title"
 F_IMAGE = "image"
 F_DESC = "desc"
+F_DATASET = "DataSet"
+F_COUNTER = "Nombre d'Objet"
 
 
 def writetodict(html, is_verbose=False):
@@ -96,10 +98,12 @@ def writetodict(html, is_verbose=False):
     # recupere le nom du fichier dans la configuration du ssysteme d'exploitation
     basedir = os.path.dirname(os.path.abspath(__file__))
     print(basedir)
+
+    dataset_api = {F_COUNTER: len(dataset), F_DATASET: dataset}
     # creation du fichier chekurl.json dans le répertoire scrap
     filename = basedir + "/" + "checkurl.json"
     with open(filename, "w", encoding="utf8") as f:
-        json.dump(dataset, f)
+        json.dump(dataset_api, f)
         print(f"file {filename} created !")
 
 
